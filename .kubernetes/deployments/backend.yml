@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx-backend
+  labels:
+    app: nginx-backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nginx-backend
+  template:
+    metadata:
+      labels:
+        app: nginx-backend
+    spec:
+      containers:
+        - name: backend
+          image: dmella04/test-backend:cd3b179
+          command: ["rails", "s"]
+          ports:
+            - containerPort: 3000
+
+        - name: nginx
+          image: dmella04/test-nginx:cd3b179
+          ports:
+            - containerPort: 80
+
