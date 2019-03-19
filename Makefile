@@ -14,11 +14,13 @@ build:
 		-t $(NAME_BACKEND):$(TAG) -f Dockerfile .
 	docker build -t $(NAME_NGINX):$(TAG) -f Dockerfile-nginx .
 tag: build
-	docker tag $(NAME_BACKEND):$(TAG) $(DOCKER_USER)/$(NAME_BACKEND):$(TAG)-latest
-	docker tag $(NAME_NGINX):$(TAG) $(DOCKER_USER)/$(NAME_NGINX):$(TAG)-latest
+	docker tag $(NAME_BACKEND):$(TAG) $(DOCKER_USER)/$(NAME_BACKEND):latest
+	docker tag $(NAME_BACKEND):$(TAG) $(DOCKER_USER)/$(NAME_BACKEND):$(TAG)
+	docker tag $(NAME_NGINX):$(TAG) $(DOCKER_USER)/$(NAME_NGINX):latest
+	docker tag $(NAME_NGINX):$(TAG) $(DOCKER_USER)/$(NAME_NGINX):$(TAG)
 push: tag
-	docker push $(DOCKER_USER)/$(NAME_BACKEND):$(TAG)-latest
-	docker push $(DOCKER_USER)/$(NAME_NGINX):$(TAG)-latest
+	docker push $(DOCKER_USER)/$(NAME_BACKEND):latest
+	docker push $(DOCKER_USER)/$(NAME_NGINX):latest
 
 deploy: push
 	kubectl --record deployments/nginx-backend-deployment set image \
