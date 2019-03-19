@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: backend
-          image: dmella04/test-backend:c22b891
+          image: dmella04/test-backend:15faa65
           command: ["rails", "s"]
           ports:
             - name: backned-port80
@@ -26,7 +26,7 @@ spec:
             - name: public
               mountPath: /app/public
         - name: nginx
-          image: dmella04/test-nginx:c22b891
+          image: dmella04/test-nginx:15faa65
           ports:
             - name: nginx-port80
               containerPort: 80

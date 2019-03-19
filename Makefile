@@ -13,9 +13,13 @@ build:
 		--build-arg RAILS_MASTER_KEY=$(RAILS_MASTER_KEY)\
 		-t $(NAME_BACKEND):$(TAG) -f Dockerfile .
 	docker build -t $(NAME_NGINX):$(TAG) -f Dockerfile-nginx .
-tag:
+tag: build
 	docker tag $(NAME_BACKEND):$(TAG) $(DOCKER_USER)/$(NAME_BACKEND):$(TAG)
 	docker tag $(NAME_NGINX):$(TAG) $(DOCKER_USER)/$(NAME_NGINX):$(TAG)
-push:
+push: tag
 	docker push $(DOCKER_USER)/$(NAME_BACKEND):$(TAG)
 	docker push $(DOCKER_USER)/$(NAME_NGINX):$(TAG)
+
+deploy: push
+	kubectl --record deployments/nginx-backend-deployment set image backend=$(NAME_BACKEND):$(TAG) nginx=$(DOCKER_USER)/$(NAME_NGINX):$(TAG)
+
