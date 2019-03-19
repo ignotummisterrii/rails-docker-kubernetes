@@ -7,6 +7,7 @@ NAME_BACKEND=$(NAME)-backend
 NAME_NGINX=$(NAME)-nginx
 
 DOCKER_USER=dmella04
+APP_NAME=nginx-backend
 
 build:
 	docker build --build-arg ENVIRONMENT=$(ENVIRONMENT)\
@@ -23,7 +24,4 @@ push: tag
 	docker push $(DOCKER_USER)/$(NAME_NGINX)
 
 deploy: push
-	kubectl --record deployments/nginx-backend-deployment set image \
-		backend=$(DOCKER_USER)/$(NAME_BACKEND):latest\
-		nginx=$(DOCKER_USER)/$(NAME_NGINX):latest
-
+	kubectl delete pods -l app=$(APP_NAME)
