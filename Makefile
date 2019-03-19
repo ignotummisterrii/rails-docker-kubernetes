@@ -21,5 +21,7 @@ push: tag
 	docker push $(DOCKER_USER)/$(NAME_NGINX):$(TAG)
 
 deploy: push
-	kubectl --record deployments/nginx-backend-deployment set image backend=$(NAME_BACKEND):$(TAG) nginx=$(DOCKER_USER)/$(NAME_NGINX):$(TAG)
+	kubectl --record deployments/nginx-backend-deployment set image \
+		backend=$(DOCKER_USER)/$(NAME_BACKEND):$(TAG)\
+		nginx=$(DOCKER_USER)/$(NAME_NGINX):$(TAG)
 
