@@ -15,7 +15,8 @@ spec:
     spec:
       containers:
         - name: backend
-          image: dmella04/test-backend:15faa65
+          image: dmella04/test-backend:latest
+          imagePullPolicy: Always
           command: ["rails", "s"]
           ports:
             - name: backned-port80
@@ -26,7 +27,8 @@ spec:
             - name: public
               mountPath: /app/public
         - name: nginx
-          image: dmella04/test-nginx:15faa65
+          image: dmella04/test-nginx:latest
+          imagePullPolicy: Always
           ports:
             - name: nginx-port80
               containerPort: 80
