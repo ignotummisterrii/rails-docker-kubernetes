@@ -5,8 +5,12 @@ ARG RAILS_MASTER_KEY
 
 ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
 ENV RAILS_ENV $ENVIRONMENT
+ENV RAILS_SERVE_STATIC_FILES true
 
-RUN apt-get update -qq && apt-get install -y nodejs
+RUN apt-get update -qq && apt-get install -y \
+build-essential \
+nodejs
+
 RUN mkdir /app
 
 WORKDIR /app
