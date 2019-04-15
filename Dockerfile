@@ -1,11 +1,6 @@
 FROM ruby:2.6.2
 
-ARG ENVIRONMENT
-ARG RAILS_MASTER_KEY
-
 ENV RAILS_MASTER_KEY $RAILS_MASTER_KEY
-ENV RAILS_ENV $ENVIRONMENT
-ENV RAILS_SERVE_STATIC_FILES true
 
 RUN apt-get update -qq && apt-get install -y \
 build-essential \

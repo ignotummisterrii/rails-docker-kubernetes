@@ -1,0 +1,32 @@
+version: '3.6'
+
+services:
+
+  web:
+    image: dmella04/test-backend:latest
+    command: ["rails", "s"]
+    environment:
+      RAILS_SERVE_STATIC_FILES: "true"
+      RAILS_ENV: development
+    ports:
+      - 3000:3000
+    volumes:
+      - log:/app/log
+      - tmp:/app/tmp
+      - public:/app/public
+
+  nginx:
+    image: dmella04/test-nginx:latest
+    ports:
+      - 80:80
+    volumes:
+      - public:/app/public
+      - log:/app/log
+    depends_on:
+      - web
+
+volumes:
+  log:
+  tmp:
+  public:
+
